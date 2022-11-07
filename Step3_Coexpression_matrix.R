@@ -9,19 +9,12 @@ library(reshape)
 
 annot<-read.delim(file="mart_export.txt", sep="\t")
 expr_matrix <- read.table(file = "rnas_norm_MM.tsv", sep = '\t', row.names = 1)
-
-#Sort genes in expr_matrix according with chromosome and start point
 names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
-annot <- annot %>%
-  mutate(Chr = factor(Chr, levels=c(as.character(1:22), "X", "Y"))) %>%
-  arrange(Chr, Start)
-annot <- annot[!duplicated(annot$Gene.name),]
 
 #Filter the annot object to retain only the genes in expr_matrix
 annot <- annot %>% filter(Gene.name %in% rownames(expr_matrix))
 
-#Change the order of the genes in expr_matrix to correspond with the order in annot object
-expr_matrix <- expr_matrix[annot$Gene.name, ]
+#Transpose the expression matrix
 expr_matrix <- t(expr_matrix)
 
 #Get the correlation values between genes in expr_matrix. The output, coexpr_matrix, is list of two square matrices. The r matrix contains
