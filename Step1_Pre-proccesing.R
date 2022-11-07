@@ -78,7 +78,7 @@ annot<-read.delim(file="../../../mart_export.txt", sep="\t")
 names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
 annot$Length <- abs(annot$End - annot$Start)
 inter <- intersect(rownames(rnas), annot$Gene.name)
-rnas1 <- rnas[rownames(rnas) %in% inter,] #This is the raw expression matrix used in Stage 2 as input for DESeq2
+rnas1 <- rnas[rownames(rnas) %in% inter,] #This is the raw expression matrix used in Step 2 as input for DESeq2
 annot <- annot[annot$Gene.name %in% inter,]
 annot <- annot[!duplicated(annot$Gene.name),]
 
