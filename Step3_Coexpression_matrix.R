@@ -25,8 +25,8 @@ expr_matrix <- expr_matrix[annot$Gene.name, ]
 expr_matrix <- t(expr_matrix)
 
 #Get the correlation values between genes in expr_matrix. The output, coexpr_matrix, is list of two square matrices. The r matrix contains
-#the correlation values and the P matrix contains the p-values associated with the correlation. We set the lower triangle of the matrices to
-#remove duplicated correlations
+#the correlation values and the P matrix contains the p-values associated with the correlation. We set the lower triangle of the matrices to NA
+# in order to remove duplicated correlations
 coexpr_matrix <- rcorr(expr_matrix, type="spearman")
 
 coexpr_val <- coexpr_matrix$r
