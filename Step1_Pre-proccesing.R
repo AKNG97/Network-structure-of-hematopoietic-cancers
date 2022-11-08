@@ -12,7 +12,7 @@ library(DESeq2)
 qry.rna <- GDCquery(project = "MMRF-COMMPASS",
                     data.category= "Transcriptome Profiling",
                     data.type = "Gene Expression Quantification",
-                    workflow.type = "HTSeq - Counts",)
+                    workflow.type = "STAR - Counts",)
 
 GDCdownload(qry.rna)
 
