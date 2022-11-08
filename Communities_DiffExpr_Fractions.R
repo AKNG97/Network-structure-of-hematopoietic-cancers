@@ -1,0 +1,32 @@
+library(dplyr)
+
+communities <- as.data.frame(read.csv("/Users/kenzuke/Documents/R_projects/FunctionalEnrichment/TALL_Checked_Communities.csv", row.names = 1))
+communities[communities == "" | communities == " "] <- NA
+DE <- read.table("/Users/kenzuke/Documents/R_projects/Bone_Marrow_Samples/resLFC_TALL_vs_NormalBM_Checked_06_22.tsv")
+DE <- DE %>% select(baseMean, log2FoldChange)
+
+for(i in 1:nrow(communities)) {
+
+  query <- DE[rownames(DE) %in% communities[i,], ]
+  
+  CommNumGenes <- length(which(!is.na(communities[i,])))
+  Num_Diff_up <- sum(query$log2FoldChange > 0)
+  Num_Diff_down <- sum(query$log2FoldChange < 0)
+  
+  DE_Comm <- data.frame(Community_name = rownames(communities[i,]), 
+                      Diff_up = Num_Diff_up/CommNumGenes, 
+                      Diff_down = Num_Diff_down/CommNumGenes,
+                      Num_Diff_up = Num_Diff_up,
+                      Num_Diff_down = Num_Diff_down,
+                      NA_DEG = (1 - ((Num_Diff_up + Num_Diff_down)/CommNumGenes)),
+                      CommNumGenes = CommNumGenes,
+                      DENumGenes = nrow(query))
+  
+     if(i==1){
+          x <- DE_Comm
+          } else {
+                    x <- rbind(x, DE_Comm)
+          } 
+}
+
+write.table(x, file = "TALL_Comm_DiffExpr_corrected_07_21.csv", row.names = FALSE, col.names = TRUE, quote = FALSE)
