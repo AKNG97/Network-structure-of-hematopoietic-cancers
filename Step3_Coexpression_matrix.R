@@ -7,12 +7,12 @@ library(Hmisc)
 library(ggplot2)
 library(reshape)
 
-annot<-read.delim(file="mart_export.txt", sep="\t")
+#annot<-read.delim(file="mart_export.txt", sep="\t")
 expr_matrix <- read.table(file = "rnas_norm_MM.tsv", sep = '\t', row.names = 1)
-names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
+#names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
 
 #Filter the annot object to retain only the genes in expr_matrix
-annot <- annot %>% filter(Gene.name %in% rownames(expr_matrix))
+#annot <- annot %>% filter(Gene.name %in% rownames(expr_matrix))
 
 #Transpose the expression matrix
 expr_matrix <- t(expr_matrix)
