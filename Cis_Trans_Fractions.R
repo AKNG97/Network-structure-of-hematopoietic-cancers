@@ -13,7 +13,7 @@ NormalBMvsMM <- read.table("/Users/kenzuke/Documents/R_projects/BulkEdges_Files/
 BALL <- read.table("/Users/kenzuke/Documents/R_projects/BulkEdges_Files/BALL_MI_10M.sif", header = TRUE)
 NormalBMvsBALL <- read.table("/Users/kenzuke/Documents/R_projects/BulkEdges_Files/NormalBMvsBALL_MI_10M.sif", header = TRUE)
 
-annot <- read.csv("/Users/kenzuke/Documents/R_projects/BulkEdges_Files/annot_genes_MI.csv")
+annot <- read.csv("/Users/kenzuke/Documents/R_projects/BulkEdges_Files/mart_export.txt")
 annot$name <- gsub("-", ".", annot$name)
 
 Edges_Chromosomes <- function(x,y) {
