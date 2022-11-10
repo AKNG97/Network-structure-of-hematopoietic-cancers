@@ -7,19 +7,14 @@ library(Hmisc)
 library(ggplot2)
 library(reshape)
 
-#annot<-read.delim(file="mart_export.txt", sep="\t")
 expr_matrix <- read.table(file = "rnas_norm_MM.tsv", sep = '\t', row.names = 1)
-#names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
-
-#Filter the annot object to retain only the genes in expr_matrix
-#annot <- annot %>% filter(Gene.name %in% rownames(expr_matrix))
 
 #Transpose the expression matrix
 expr_matrix <- t(expr_matrix)
 
 #Get the correlation values between genes in expr_matrix. The output, coexpr_matrix, is list of two square matrices. The r matrix contains
 #the correlation values and the P matrix contains the p-values associated with the correlation. We set the lower triangle of the matrices to NA
-# in order to remove duplicated correlations
+#in order to remove duplicated correlations
 coexpr_matrix <- rcorr(expr_matrix, type="spearman")
 
 coexpr_val <- coexpr_matrix$r
