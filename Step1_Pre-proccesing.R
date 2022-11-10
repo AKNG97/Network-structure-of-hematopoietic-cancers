@@ -4,6 +4,25 @@ require(EDASeq)
 require(dplyr)
 require(NOISeq)
 library(DESeq2)
+library(biomaRt)
+
+###################################################################################################################################
+#Download annotation file from BioMart.
+
+ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl", mirror = "www")
+
+features <- c("ensembl_gene_id", "chromosome_name", 
+              "start_position", "end_position", "hgnc_symbol",	
+              "percentage_gene_gc_content", "gene_biotype")
+chrs <- c(1:22, "X", "Y")
+
+annot <- getBM(attributes = features,
+      filters = "chromosome_name",
+      values = chrs, 
+      mart = ensembl)
+
+colnames(annot)<-c("ensembl_gene_id", "Chr", "Start", "End", "HGNC_symbol", "GC", "Type")
+annot$Length <- abs(annot$End - annot$Start)
 
 ###################################################################################################################################
 #Download RNA Seq data from TCGA, projects encompass "MMRF-COMMPASS" for MM, "TARGET-ALL-P2" for BALL and TALL,
@@ -40,16 +59,9 @@ AML_BM <- AML_Normal_BM.raw[, AML_Normal_BM.raw$sample_type == "Primary Blood De
 Normal_BoneMarrow <- AML_Normal_BM.raw[ , AML_Normal_BM.raw$sample_type == "Bone Marrow Normal"]
 
 ###################################################################################################################################
-#Arrange raw expression matrix and factor tables.
-
-rownames(MM) <- rowData(MM)$external_gene_name
-rownames(rMM) <- rowData(rMM)$external_gene_name
-rownames(Normal_BoneMarrow) <- rowData(Normal_BoneMarrow)$external_gene_name
 
 #Bind raw expression matrices from the cancer phenotype and the normal phenotype into the object "rna"
 rnas <- cbind(assay(MM), assay(rMM), assay(Normal_BoneMarrow))
-rnas <- rnas[!duplicated(rownames(rnas)),]
-rnas_before <- rnas 
 
 #Construct and object containing the sample name and the group of which it belongs, the samples must be in the same order as in the expression matrix.
 factorsMM <- data.frame(Group = "MM", Sample = c(colnames(MM), colnames(rMM)))
@@ -67,20 +79,26 @@ dataFilt <- TCGAanalyze_Filtering(tabDF = rnas,
 threshold <- round(dim(rnas)[2]/2)
 ridx <- rowSums(dataFilt == 0) <= threshold
 dataFilt <- dataFilt[ridx, ]
+dim(dataFilt)
 ridx <- rowMeans(dataFilt) >= 10
 dataFilt <- dataFilt[ridx, ]
-rnas <- rnas[rownames(rnas) %in% rownames(dataFilt), ] 
+print(dim(dataFilt))
+rnas <- rnas[rownames(rnas) %in% rownames(dataFilt), ]
+dim(rnas)
 
 ###################################################################################################################################
-#Get an annotation file with the features of the genes on the expression matrix
+#Filter the annotation file to get only the genes in the expression matrix. Check for duplicates and remove them is necessary.
 
-annot<-read.delim(file="../../../mart_export.txt", sep="\t")
-names(annot)<-c("Gene.name", "Chr", "Start", "End", "GC", "Type", "ensembl_gene_id")
-annot$Length <- abs(annot$End - annot$Start)
-inter <- intersect(rownames(rnas), annot$Gene.name)
-rnas1 <- rnas[rownames(rnas) %in% inter,] #This is the raw expression matrix used in Step 2 as input for DESeq2
-annot <- annot[annot$Gene.name %in% inter,]
-annot <- annot[!duplicated(annot$Gene.name),]
+inter <- intersect(rownames(rnas), annot$ensembl_gene_id)
+length(inter)
+rnas1 <- rnas[rownames(rnas) %in% inter,]
+dim(rnas1)
+annot1 <- annot[annot$ensembl_gene_id  %in% inter,]
+dim(annot1)
+annot1 <- annot1[!duplicated(annot1$ensembl_gene_id),]
+dim(annot1)
+annot1[annot1 == ""] <- NA  
+rnas_before <- rnas1  #This is the raw expression matrix used in Step 2 as input for DESeq2
 
 ###################################################################################################################################
 #Normalization steps.
@@ -98,7 +116,7 @@ rnas_after <- exprs(mydata2corr1)
 
 library(ggbiplot)
 
-before.pca <- prcomp(t( ),center = TRUE,scale. = TRUE)
+before.pca <- prcomp(t(rnas_before),center = TRUE,scale. = TRUE)
 summary(before.pca)
 ggbiplot(before.pca, var.axes=FALSE, ellipse=TRUE, groups=factors$Group)
 
