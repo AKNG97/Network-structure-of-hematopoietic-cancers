@@ -7,7 +7,7 @@ library(GOSemSim)
 library(DOSE)
 library(dplyr)
 
-communities <- read.csv("../Communities_Diff_Expr/Lymph_Network_intersec_Final.csv", row.names = 1)
+communities <- read.csv("../Communities_Diff_Expr/MM_GenesEnsembl_Communities.csv", row.names = 1)
 communities_t <- t(communities)
 
 for(i in 1:ncol(communities_t)) {
