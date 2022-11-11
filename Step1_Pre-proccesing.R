@@ -103,8 +103,8 @@ rnas_before <- rnas1  #This is the raw expression matrix used in Step 2 as input
 ###################################################################################################################################
 #Normalization steps.
 
-ln.data <- withinLaneNormalization(rnas1, annot$Length, which = "full")
-gcn.data <- withinLaneNormalization(ln.data , annot$GC, which = "full")
+ln.data <- withinLaneNormalization(rnas1, annot1$Length, which = "full")
+gcn.data <- withinLaneNormalization(ln.data , annot1$GC, which = "full")
 Btwn.Norm <- betweenLaneNormalization(gcn.data, which = "full") 
 norm.counts <- tmm(Btwn.Norm, long = 1000, lc = 0, k = 0)
 noiseqData <- NOISeq::readData(norm.counts, factors = Ready_factors)
