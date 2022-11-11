@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot)
 
-MI_Cancer <- read.table("/Users/kenzuke/Documents/Paper_1/BALL_MI_100k.sif", header = TRUE)
+MI_Cancer <- read.table("/Users/kenzuke/Documents/Paper_1/MM_MI_100k.sif", header = TRUE)
 Annot <- read.csv("/Users/kenzuke/Documents/R_projects/Intersections_2/mart_export.txt")
 Annot$name <- gsub("-", ".", Annot$name)
 Annot$name <- gsub("_", ".", Annot$name)
