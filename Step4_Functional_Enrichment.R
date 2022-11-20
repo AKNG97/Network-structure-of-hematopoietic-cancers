@@ -12,7 +12,7 @@ communities_t <- t(communities)
 for(i in 1:ncol(communities_t)) {
     
 FuncEnrich <- enrichGO(gene = communities_t[,i], OrgDb = "org.Hs.eg.db", ont = "BP",
-                       keyType = "ENSEMBL", pvalueCutoff=0.00001)
+                       keyType = "ENSEMBL", pvalueCutoff=0.0000000001)
 
   #We applied the redundancy reduction function simplify to remove similar biological processes
   
