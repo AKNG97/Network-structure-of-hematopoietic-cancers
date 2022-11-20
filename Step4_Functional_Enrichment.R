@@ -1,6 +1,5 @@
 #The input of this step are the communities detected using HiDeF in cytoscape with its defalut settings and employing the Louvain algorithm.
-#The communities and the list of genes in each community were exported form Cytoscape in csv files.
-#For this step we used the ENSEMBL IDs of the genes that were contained on the daowloaded S4 data in Step 1.
+#The communities and the list of genes in each community were exported from Cytoscape into csv files.
 
 library(clusterProfiler)
 library(GOSemSim)
