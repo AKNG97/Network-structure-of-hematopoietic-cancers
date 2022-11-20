@@ -2,8 +2,10 @@ library(tidyr)
 library(dplyr)
 
 ##### Intersections of Cancers ####
+#Load the top 100k interactions of each network.
+
 TALL <- read.table("TALL_100k.sif", header = TRUE)
-AML <- read.table("AML2_100k.sif", header = TRUE)
+AML <- read.table("AML_100k.sif", header = TRUE)
 BALL <- read.table("BALL_100k.sif", header = TRUE)
 MM <- read.table("MM_100k.sif", header = TRUE)
 
@@ -23,7 +25,7 @@ write.table(Cancer_intersections_network,file = "Cancer_network_intersections.si
 
 ##### Intersections of NormalBM ####
 Normal_TALL <- read.table("NormalBMvsTALL.csv", header = TRUE)
-Normal_AML <- read.table("NormalBMvsAML2_100k.sif", header = TRUE)
+Normal_AML <- read.table("NormalBMvsAML_100k.sif", header = TRUE)
 Normal_BALL <- read.table("NormalBMvsBALL_100k.sif", header = TRUE)
 Normal_MM <- read.table("NormalBMvsMM_100k.sif", header = TRUE)
 
