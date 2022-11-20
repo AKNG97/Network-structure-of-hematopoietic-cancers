@@ -1,8 +1,8 @@
 library(dplyr)
 
-communities <- as.data.frame(read.csv("/Users/kenzuke/Documents/R_projects/FunctionalEnrichment/TALL_Checked_Communities.csv", row.names = 1))
+communities <- as.data.frame(read.csv("/TALL_Checked_Communities.csv", row.names = 1))
 communities[communities == "" | communities == " "] <- NA
-DE <- read.table("/Users/kenzuke/Documents/R_projects/Bone_Marrow_Samples/resLFC_TALL_vs_NormalBM_Checked_06_22.tsv")
+DE <- read.table("resLFC_TALL_vs_NormalBM_Checked_06_22.tsv")
 DE <- DE %>% select(baseMean, log2FoldChange)
 
 for(i in 1:nrow(communities)) {
