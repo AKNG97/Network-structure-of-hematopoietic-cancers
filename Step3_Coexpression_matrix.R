@@ -1,6 +1,7 @@
 #The co-expression matrix using ARACNe (mutual information) was obtained using the pipeline developed by...
 
-#The co-expression matrix using the Spearman correlation was obtained using the rcorr function in R as follows.
+#The co-expression matrix using the Spearman correlation was obtained using the rcorr function in R as follows. The input for this script is a normalized
+#counts file from step 1.
 
 library(dplyr)
 library(Hmisc)
