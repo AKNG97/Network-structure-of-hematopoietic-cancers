@@ -36,8 +36,8 @@ qry.rna <- GDCquery(project = "MMRF-COMMPASS",
 GDCdownload(qry.rna)
 
 MM.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For MM
-ALL.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For BALL and TALL
-AML_Normal_BM.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For AML and Normal Bone Marrow
+#ALL.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For BALL and TALL
+#AML_Normal_BM.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For AML and Normal Bone Marrow
 
 ###################################################################################################################################
 #Filter the data to retain only relevant samples.
@@ -45,16 +45,16 @@ AML_Normal_BM.raw <- GDCprepare(qry.rna, summarizedExperiment = TRUE) #For AML a
 MM <- MM.raw[ , MM.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow"]
 rMM <- MM.raw[ , MM.raw$sample_type == "Recurrent Blood Derived Cancer - Bone Marrow"]
 
-T_ALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "T lymphoblastic leukemia/lymphoma" & 
-                    ALL.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow"]
+#T_ALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "T lymphoblastic leukemia/lymphoma" & 
+#                    ALL.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow"]
                     
-B_ALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & 
-                    ALL.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow"]
-B_rALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & 
-                     ALL.raw$sample_type == "Recurrent Blood Derived Cancer - Bone Marrow"]
+#B_ALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & 
+#                    ALL.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow"]
+#B_rALL <- ALL.raw[ , ALL.raw$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & 
+#                     ALL.raw$sample_type == "Recurrent Blood Derived Cancer - Bone Marrow"]
 
-AML_BM <- AML_Normal_BM.raw[, AML_Normal_BM.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow" | 
-                          AML_Normal_BM.raw$sample_type =="Recurrent Blood Derived Cancer - Bone Marrow"] 
+#AML_BM <- AML_Normal_BM.raw[, AML_Normal_BM.raw$sample_type == "Primary Blood Derived Cancer - Bone Marrow" | 
+#                          AML_Normal_BM.raw$sample_type =="Recurrent Blood Derived Cancer - Bone Marrow"] 
  
 Normal_BoneMarrow <- AML_Normal_BM.raw[ , AML_Normal_BM.raw$sample_type == "Bone Marrow Normal"]
 
@@ -87,18 +87,17 @@ rnas <- rnas[rownames(rnas) %in% rownames(dataFilt), ]
 dim(rnas)
 
 ###################################################################################################################################
-#Filter the annotation file to get only the genes in the expression matrix. Check for duplicates and remove them is necessary.
+#Filter the annotation file to get only the genes in the expression matrix. Check for duplicates and remove them if necessary.
 
 inter <- intersect(rownames(rnas), annot$ensembl_gene_id)
 length(inter)
-rnas1 <- rnas[rownames(rnas) %in% inter,]
+rnas1 <- rnas[rownames(rnas) %in% inter,] #This is the raw expression matrix used in Step 2 as input for DESeq2
 dim(rnas1)
 annot1 <- annot[annot$ensembl_gene_id  %in% inter,]
 dim(annot1)
 annot1 <- annot1[!duplicated(annot1$ensembl_gene_id),]
 dim(annot1)
 annot1[annot1 == ""] <- NA  
-rnas_before <- rnas1  #This is the raw expression matrix used in Step 2 as input for DESeq2
 
 ###################################################################################################################################
 #Normalization steps.
@@ -109,27 +108,26 @@ Btwn.Norm <- betweenLaneNormalization(gcn.data, which = "full")
 norm.counts <- tmm(Btwn.Norm, long = 1000, lc = 0, k = 0)
 noiseqData <- NOISeq::readData(norm.counts, factors = Ready_factors)
 mydata2corr1 = NOISeq::ARSyNseq(noiseqData, norm = "n",  logtransf = FALSE)
-rnas_after <- exprs(mydata2corr1)
+rnas2 <- exprs(mydata2corr1)
 
 ###################################################################################################################################
 #Get PCAs
 
 library(ggbiplot)
 
-before.pca <- prcomp(t(rnas_before),center = TRUE,scale. = TRUE)
+before.pca <- prcomp(t(rnas1),center = TRUE,scale. = TRUE)
 summary(before.pca)
 ggbiplot(before.pca, var.axes=FALSE, ellipse=TRUE, groups=factors$Group)
 
-after.pca <- prcomp(t(rnas_after),center = TRUE,scale. = TRUE)
+after.pca <- prcomp(t(rnas2),center = TRUE,scale. = TRUE)
 summary(after.pca)
 ggbiplot(after.pca, var.axes=FALSE, ellipse=TRUE, groups=factors$Group)
-
 
 ###################################################################################################################################
 #Save normalizaed counts
 
-MM_Norm <- rnas_after[, factors$Group=="MM"]
-NormalBM_Norm <- rnas_after[, factors$Group=="NormalBM"] 
+MM_Norm <- rnas2[, factors$Group=="MM"]
+NormalBM_Norm <- rnas2[, factors$Group=="NormalBM"] 
 
 Aracne_MM_Norm <- cbind(rownames(MM_Norm), MM_Norm)
 Aracne_NormalBM_Norm <- cbind(rownames(NormalBM_Norm), NormalBM_Norm)
