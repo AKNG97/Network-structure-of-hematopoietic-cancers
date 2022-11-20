@@ -3,6 +3,8 @@ library(dplyr)
 library(ggplot2)
 
 S_T_unite <- function(x) {
+#S_T_unite gets an ID for each coexpression interaction using the names of the genes. 
+  
   
   x$S_T <- paste(pmin(x$source,x$target), 
                  pmax(x$source,x$target),sep="-")
@@ -51,26 +53,6 @@ colnames(Normal_AML_Sp_10M) <- c("source", "sp", "target")
 colnames(Normal_BALL_Sp_10M) <- c("source", "sp", "target")
 colnames(Normal_MM_Sp_10M) <- c("source", "sp", "target")
 
-TALL_Sp_10M$source <- gsub("-", ".", TALL_Sp_10M$source)
-AML_Sp_10M$source <- gsub("-", ".", AML_Sp_10M$source)
-BALL_Sp_10M$source <- gsub("-", ".", BALL_Sp_10M$source)
-MM_Sp_10M$source <- gsub("-", ".", MM_Sp_10M$source)
-
-TALL_Sp_10M$target <- gsub("-", ".", TALL_Sp_10M$target)
-AML_Sp_10M$target <- gsub("-", ".", AML_Sp_10M$target)
-BALL_Sp_10M$target <- gsub("-", ".", BALL_Sp_10M$target)
-MM_Sp_10M$target <- gsub("-", ".", MM_Sp_10M$target)
-
-Normal_TALL_Sp_10M$source <- gsub("-", ".", Normal_TALL_Sp_10M$source)
-Normal_AML_Sp_10M$source <- gsub("-", ".", Normal_AML_Sp_10M$source)
-Normal_BALL_Sp_10M$source <- gsub("-", ".", Normal_BALL_Sp_10M$source)
-Normal_MM_Sp_10M$source <- gsub("-", ".", Normal_MM_Sp_10M$source)
-
-Normal_TALL_Sp_10M$target <- gsub("-", ".", Normal_TALL_Sp_10M$target)
-Normal_AML_Sp_10M$target <- gsub("-", ".", Normal_AML_Sp_10M$target)
-Normal_BALL_Sp_10M$target <- gsub("-", ".", Normal_BALL_Sp_10M$target)
-Normal_MM_Sp_10M$target <- gsub("-", ".", Normal_MM_Sp_10M$target)
-
 TALL_Sp_interactions_10M <- S_T_unite(TALL_Sp_10M)
 AML_Sp_interactions_10M <- S_T_unite(AML_Sp_10M)
 BALL_Sp_interactions_10M <- S_T_unite(BALL_Sp_10M)
@@ -82,6 +64,8 @@ Normal_BALL_Sp_interactions_10M <- S_T_unite(Normal_BALL_Sp_10M)
 Normal_MM_Sp_interactions_10M <- S_T_unite(Normal_MM_Sp_10M)
 
 ####################### Get Similarity #################################################
+
+#Get the similarity for each phenotype. Load the cancer and normal network for each case accordingly.
 
 Spearman_Cancer <- AML_Sp_interactions_10M
 MI_Cancer <- AML_MI_interactions_10M
@@ -120,17 +104,17 @@ while(h*10^(j) <= 1e+07) {
   }
 }
 
-
-SharedEdges_SpMI_MM_log <- z
-SharedEdges_SpMI_BALL_log  <- z
-SharedEdges_SpMI_TALL_log  <- z
 SharedEdges_SpMI_AML_log  <- z
+#SharedEdges_SpMI_MM_log <- z
+#SharedEdges_SpMI_BALL_log  <- z
+#SharedEdges_SpMI_TALL_log  <- z
 
-ggplot(SharedEdges_SpMI_MM_log, aes(x=total_interactions, y=shared_edges, color=Condition)) + geom_line(aes(color=Condition)) + geom_point() + 
+
+ggplot(SharedEdges_SpMI_AML_log, aes(x=total_interactions, y=shared_edges, color=Condition)) + geom_line(aes(color=Condition)) + geom_point() + 
   ylim(0, 1) + scale_colour_manual(values = cols) + 
   theme(panel.border = element_rect(colour = "black", fill=NA, size=1), plot.title = element_text(face = "bold")) +
-  ggtitle("Shared interactions between Spearman correlation and Mutual information networks", subtitle= "Multiple Myeloma") +
+  ggtitle("Shared interactions between Spearman correlation and Mutual information networks", subtitle= "Acute myeloid leukemia") +
   labs(y = "Fraction of shared interactions", x = "Total edges") +  scale_x_log10() + ylim(0.5, 1)
 
-ggsave("MM_log_sharedEdges_3.tiff", units="in", width=10, height=5, dpi=300, compression = 'lzw')
+ggsave("AML_log_sharedEdges.tiff", units="in", width=10, height=5, dpi=300, compression = 'lzw')
 
