@@ -27,7 +27,7 @@ We used the top 10,000, 100,000, and 10,000,000 to analyze the networks in diffe
 # Step 4: Functional enrichment
 
 This scprit performs the functional enrichment of each community detected by HiDeF in Cytoscape. HiDeF was run using default parameters (Weight column: None, Max resolution parameter: 50, Consensus threshold: 75, Persistent threshold: 5, Algorith: Louvain). The files
-of the communities in each network is found in /Outs . 
+of the communities in each network is found in /../Outs . 
 
 # Network analysis
 
