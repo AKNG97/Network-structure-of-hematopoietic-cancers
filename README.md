@@ -20,9 +20,41 @@ the multiple myeloma samples in comparison with the normal bone marrow data.
 Following the normalization, we used the ARACNe algorithm to get the mutual information values for each pair of genes in the expression matrix. This was performed
 as described in https://github.com/ddiannae/ARACNE-multicore
 
+The Spearman correlation values were calculated using the script Step3_Coexpression_matrix.R,
+
+We used the top 10,000, 100,000, and 10,000,000 to analyze the networks in different aspects.
+
 # Ste4: Functional enrichment
 
-This scprit performs the functional enrichment of each community detected by HiDeF in Cytoscape. HiDeF was run using its default parameters ().
+This scprit performs the functional enrichment of each community detected by HiDeF in Cytoscape. HiDeF was run using its default parameters (). The files
+of the communities in each network is found in " ".
+
+# Network analysis
+
+## Similarity between mutual information and Spearman networks.
+
+The input for this was the top 10,000,000 interactions of each network.
+
+## Analysis of the inter/intra-chromosomal regulation
+
+The input fot his was, again, the top 10,000,000 interactions of each mutual information network.
+
+## Get the shared interactions among the four HCs networks
+
+This script uses the top 100,000 interactions in each each mutual information network.
+
+## Get the fractions of over/under-expressed genes in each community.
+
+This script calculated the fraction of under- or over-expressed genes in each community. The files
+of the communities in each network is found in " ". This is represented in the bipartite networks of communities and BPs in the form of pie plots in each community.
+
+## Shared processes among HCs
+
+This script uses the results of the Step 4, it identifies the common BPs and the genes that are responsible for the each enrichment in the communities of the networks. This information is summarized in a heatmap. The namesof the different branches in the dendrograms were added in a image editor.
+
+## Analyzing the RNA biotypes in the data
+
+This script was run using the top 10,000 interactions of each mutual information network. To analyze addional cut-off points of the noetworks, the corresponding networks can be loaded in the Network object.
 
 
 
