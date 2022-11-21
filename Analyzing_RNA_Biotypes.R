@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot)
 
-MI_Cancer <- read.table("/Users/kenzuke/Documents/Paper_1/MM_MI_10k.sif", header = TRUE)
+Network <- read.table("/Users/kenzuke/Documents/Paper_1/MM_MI_10k.sif", header = TRUE)
 Annot <- read.csv("/Users/kenzuke/Documents/R_projects/Intersections_2/mart_export.txt")
 
 #Detect the different subtypes of genes and group them into a bigger category.
@@ -14,7 +14,7 @@ table(as.factor(Annot$Gene.type))
 # Hay que revisar Annot para editar con Annot$Gene.type <- gsub("TR.*", "TR", Annot$Gene.type)
 #Get the biotypes for each gene pair
 
-Sources <- merge(MI_Cancer[1:10000,], Annot, by.x = "source", by.y = "name")
+Sources <- merge(Network[1:10000,], Annot, by.x = "source", by.y = "name")
 Sources <- Sources %>% dplyr::select("source", "mi", "target", "Gene.type")
 colnames(Sources) <- c("source", "mi", "target", "Gene.type.source")
 Targets <- merge(Sources, Annot, by.x = "target", by.y = "name")
