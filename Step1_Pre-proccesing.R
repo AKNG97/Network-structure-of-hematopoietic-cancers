@@ -123,6 +123,28 @@ after.pca <- prcomp(t(rnas2),center = TRUE,scale. = TRUE)
 summary(after.pca)
 ggbiplot(after.pca, var.axes=FALSE, ellipse=TRUE, groups=factors$Group)
 
+#QC Report
+
+mydata_bf <- NOISeq::readData(
+  data = rnas1,
+  factors = factors,
+  length = annot[,c("ensembl_gene_id", "Length")],
+  biotype = annot[,c("ensembl_gene_id", "Type")],
+  chromosome = annot[,c("Chr", "Start", "End")],
+  gc = annot[, c("ensembl_gene_id", "GC")])
+
+QCreport(mydata_bf, samples = NULL, factor = "Group", norm = FALSE)
+
+mydata_after <- NOISeq::readData(
+  data = rnas_after,
+  factors = factors,
+  length = annot[,c("ensembl_gene_id", "Length")],
+  biotype = annot[,c("ensembl_gene_id", "Type")],
+  chromosome = annot[,c("Chr", "Start", "End")],
+  gc = annot[, c("ensembl_gene_id", "GC")])
+
+QCreport(mydata_after, samples = NULL, factor = "Group", norm = TRUE)
+
 ###################################################################################################################################
 #Save normalizaed counts
 
