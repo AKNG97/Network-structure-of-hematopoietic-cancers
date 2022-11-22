@@ -111,7 +111,7 @@ mydata2corr1 = NOISeq::ARSyNseq(noiseqData, norm = "n",  logtransf = FALSE)
 rnas2 <- exprs(mydata2corr1)
 
 ###################################################################################################################################
-#Get PCAs
+#Quality control
 
 library(ggbiplot)
 
