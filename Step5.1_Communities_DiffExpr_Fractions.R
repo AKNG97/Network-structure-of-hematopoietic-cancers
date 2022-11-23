@@ -1,3 +1,7 @@
+#Step 5.1: Get the fractions of differentially expressed genes in each community of a network.
+
+#This script uses ans inputs a community file and a table containing the differentially expressed genes of a phenotype.
+
 library(dplyr)
 
 communities <- as.data.frame(read.csv("/TALL_Checked_Communities.csv", row.names = 1))
