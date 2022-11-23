@@ -1,3 +1,8 @@
+#Similarity between the MI and Sp networks.
+
+# This is script has as inputs the networks on the cut-off point of 10,000,000.
+
+
 library(tidyr)
 library(dplyr)
 library(ggplot2)
