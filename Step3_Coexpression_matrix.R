@@ -1,7 +1,10 @@
-#The co-expression matrix using ARACNe (mutual information) was obtained using the pipeline developed by...
+# Step 3: Get the co-expression values for each gene pair
 
-#The co-expression matrix using the Spearman correlation was obtained using the rcorr function in R as follows. The input for this script is a normalized
-#counts file from step 1.
+#We used the ARACNe algorithm to get the mutual information values for each pair of genes in the expression matrix. 
+#This was performed as described in https://github.com/ddiannae/ARACNE-multicore
+
+##This script calculates the Spearman correlation values. The co-expression matrix was obtained using the rcorr function in R as follows. 
+#The input for this script is the normalized counts file from step 1.
 
 library(dplyr)
 library(Hmisc)
