@@ -1,3 +1,7 @@
+#Step 5.2: Analyze the cis/trans-chromosonal fractions of the networks.
+
+#The input fot his was the top 10,000,000 interactions of each network. 
+
 library(tidyr)
 library(dplyr)
 library(ggplot2)
