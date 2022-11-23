@@ -1,3 +1,6 @@
+# Step2: Differential gene expression analysis
+#The unnormalized expression matrix was used to detect differentially expressed genes using the DESeq2 package.
+
 library(DESeq2)
 
 #The input for this script is the unnormalized rnas1 object and the factors object created in the Stage 1.
