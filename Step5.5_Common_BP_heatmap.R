@@ -1,3 +1,10 @@
+#Step 5.5: Analyze the common biological processes among the four hematopoietic cancer networks.
+
+#This script uses the results of the Step 4, it identifies the common BPs and the genes that are responsible
+#for the each enrichment in the communities of the networks. This information is summarized in a heatmap. The names of 
+#the different branches in the dendrograms were added in a image editor.
+
+
 library(ComplexHeatmap)
 library(dplyr)
 library(tidyr)
