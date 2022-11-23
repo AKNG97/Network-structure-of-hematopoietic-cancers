@@ -1,3 +1,7 @@
+# Step 5.3: Analyze the interactions among different RNA biotypes in each network.
+
+#This script was run using the top 10,000 interactions of each mutual information network, but it can be run using different cut-off points.
+
 library(dplyr)
 library(ggplot)
 
