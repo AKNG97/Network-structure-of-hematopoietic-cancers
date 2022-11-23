@@ -1,12 +1,25 @@
 # The network structure of hematopoietic cancers
 
+This repository contains the code for the paper: "The network structure of hematopoietic cancers". We organized this code into 5 Steps.
+
+- Step 1: Data download, pre-processing and normalization. 
+  - The results presented in the paper were made using HT-Seq counts. Unfortunnaly, the HT-Seq pipeline was discontinued from GDC and replaced by the STAR - Count pipeline.
+- Step 2: Differential expression analysis.
+- Step 3: Constructuing the co-expression matrix.
+- Step 4: Communities functional enrichment.
+- Step 5: Topological analysis of the networks.
+
+The steps 1-4 yield results for a specific phenotype. This phenotype has to be defined according to the instructions in each script. Step 5 contains five scripts to analyse the networks, communities and functional enrichments:
+
+- Step 5.1: Get the fractions of differentially expressed genes in each community of a network.
+- Step 5.2: Analyze the cis/trans-chromosonal fractions of the networks.
+- Step 5.3: Analyze the interactions among different RNA biotypes in each network.
+- Step 5.4: Get the intersection networks (shared interactions amons phenotypes).
+- Step 5.5: Analyze the common biological processes among the four hematopoietic cancer networks.
+
 
 
 # Step 1: Pre-processing and normalization
-
-The script is an example to perfom the pre-prosessing of the raw counts for the multiple myeloma dataset, and the next scripts presented here 
-are written to analyze these sample set. In the script for analyzing the data, the inputs are files from every phenotype . The results presented
-in the paper were made using HT-Seq counts. Unfortunnaly, the HT-Seq pipeline was discontinued from GDC, and replaced by the STAR - Count pipeline. 
 
 This script has to be run individually for each HC in order to obtain their normalized expression values. The normal bone marrow data has to be used
 each time the script is run. Hence, the final output for this are eight files.
