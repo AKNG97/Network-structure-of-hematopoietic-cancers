@@ -1,3 +1,7 @@
+#Step 5.4: Get the intersection networks (shared interactions among phenotypes).
+
+#This script uses the top 100,000 interactions in each each mutual information network.
+
 library(tidyr)
 library(dplyr)
 
