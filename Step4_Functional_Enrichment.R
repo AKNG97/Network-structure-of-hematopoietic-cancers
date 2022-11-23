@@ -1,5 +1,8 @@
-#The input of this step are the communities detected using HiDeF in cytoscape with its defalut settings and employing the Louvain algorithm.
-#The communities and the list of genes in each community were exported from Cytoscape into csv files.
+# Step 4: Functional enrichment
+
+#This scprit performs the functional enrichment of each community detected by HiDeF in Cytoscape. HiDeF was run using default parameters 
+#(Weight column: None, Max resolution parameter: 50, Consensus threshold: 75, Persistent threshold: 5, Algorith: Louvain). The files
+#of the communities in each network is found in the Supplementary material folder.
 
 library(clusterProfiler)
 library(GOSemSim)
