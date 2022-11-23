@@ -33,7 +33,7 @@ of the communities in each network is found in /../Outs .
 
 ## Similarity between mutual information and Spearman networks.
 
-The input for this was the top 10,000,000 interactions of each network.
+The input for this was the top 10,000,000 interactions of each network. `tu linea de codigo`
 
 ## Analysis of the inter/intra-chromosomal regulation
 
