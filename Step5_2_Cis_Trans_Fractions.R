@@ -96,7 +96,7 @@ NormalBMvsBALL_cis_count <- cis_counting(NormalBMvsBALL_chromosomes)
 conditions <- c(rep("TALL", 55), rep("AML", 55), rep("MM", 55), rep("BALL", 55),
   rep("NormalBMvsTALL", 55), rep("NormalBMvsAML", 55), rep("NormalBMvsMM", 55), rep("NormalBMvsBALL", 55))
 
-global_cis_count <- data.frame(condition=conditions, total_interactions=rep(TALL_cis_count$total_edges, 440), 
+global_cis_count <- data.frame(condition=conditions, total_interactions=rep(TALL_cis_count$total_edges, 8), 
                                cis_fraction = c(TALL_cis_count$cis_proportion, AML_cis_count$cis_proportion,
                                                    MM_cis_count$cis_proportion, BALL_cis_count$cis_proportion,
                                                     NormalBMvsTALL_cis_count$cis_proportion, NormalBMvsAML_cis_count$cis_proportion,
