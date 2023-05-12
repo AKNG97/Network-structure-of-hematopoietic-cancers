@@ -131,6 +131,7 @@ get_annot <- function(x,y) {
   y[y == ""] <- NA
   y <- y[!is.na(y$HGNC_symbol),]
   x <- x[rownames(x) %in% y$Ensembl_ID_Version,]
+  y <- y[match(rownames(x), y$ensembl_gene_id),,]
   print(dim(y))
   print(dim(x))
   return(list(x,y))
