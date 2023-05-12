@@ -132,6 +132,7 @@ get_annot <- function(x,y) {
   annot1 <- annot1[!is.na(annot1$HGNC_symbol),]
   annot1 <- annot1[annot1$Type=="protein_coding",]
   x <- x[rownames(x) %in% annot1$Ensembl_ID_Version,]
+  annot1 <- annot1[match(rownames(x), annot1$Ensembl_ID_Version), ]
   print(dim(annot1))
   print(dim(x))
   return(list(x,annot1))
