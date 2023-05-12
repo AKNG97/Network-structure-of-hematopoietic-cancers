@@ -109,6 +109,7 @@ dim(annot1)
 annot1 <- annot1[!duplicated(annot1$ensembl_gene_id),]
 dim(annot1)
 annot1[annot1 == ""] <- NA  
+annot1 <- annot1[match(rownames(rnas1), annot1$ensembl_gene_id), ]
 
 ###################################################################################################################################
 #Normalization steps.
