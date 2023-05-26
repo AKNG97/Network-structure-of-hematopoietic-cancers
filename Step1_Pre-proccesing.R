@@ -1,10 +1,10 @@
 # Step 1: Pre-processing and normalization
 
-#This script has to be run individually for each HC in order to obtain their normalized expression values. The normal bone marrow data has to be used
-#each time the script is run. Hence, the final output for this are eight files. 
+#This script has to be run individually for each HC in order to obtain their normalized expression values. The normal bone 
+#marrow data has to be used each time the script is run. Hence, the final output for this are eight files. 
 
-#NOTE: The results presented in the paper were made using HT-Seq counts. Unfortunnaly, the HT-Seq pipeline was discontinued from GDC and replaced 
-#by the STAR - Count pipeline.
+#NOTE: The results presented in the paper were made using HT-Seq counts. Unfortunnaly, the HT-Seq pipeline was discontinued 
+#from GDC and replaced by the STAR - Count pipeline.
 
 ###################################################################################################################################
 #Load packages.
