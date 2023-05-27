@@ -19,7 +19,7 @@ BALL <- read.table("BALL_10M_MI.sif", header = TRUE)
 NormalBMvsBALL <- read.table("NBM_BALL_10M_MI.sif", header = TRUE)
 
 #### Get an annotation file ####
-#httr::set_config(httr::config(ssl_verifypeer = FALSE)) only on server 2
+
 ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl", mirror = "www")
 
 features <- c("ensembl_gene_id", "chromosome_name", 
