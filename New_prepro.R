@@ -1,3 +1,10 @@
+#NOTE 1: The results presented in the paper were made using HT-Seq counts. Unfortunnaly, the HT-Seq pipeline was discontinued 
+#from GDC and replaced by the STAR - Count pipeline.
+
+#NOTE 2: All data used here was downloaded during autum of 2021. Since then there has been
+# updates to the datasets and now includes more samples in the case of data from TARGET-AML.
+# However, we decided to only include the original data that were processed using the HT-seq counts pipeline.
+
 #### Load libraries ####
 
 library(SummarizedExperiment)
@@ -101,13 +108,32 @@ colnames(annot)<-c("ensembl_gene_id", "Chr", "Start", "End", "HGNC_symbol", "GC"
 annot$Length <- abs(annot$End - annot$Start)
 annot <- annot[!duplicated(annot$ensembl_gene_id),]
 
-#### Load data ####
+#### Download data ####
 
-AML_Normal_BM <- readRDS("AML_Normal_BM.rds")
-ALL <- readRDS("../../rnas_raw_TAP2.RDS")
-MM_raw <- readRDS("rnas_raw_MM.rds")
+qry.AML <- GDCquery(project = "TARGET-AML",
+                    data.category= "Transcriptome Profiling",
+                    data.type = "Gene Expression Quantification",
+                    workflow.type = "STAR - Counts")
+GDCdownload(qry.AML)
+AML_Normal_BM <- GDCprepare(qry.AML, summarizedExperiment = TRUE) #For MM
 
-BALL_ci <- readRDS("../../ecotyper/clinical_info_BALL_TPM_8_ecotyper.RDS")
+qry.ALL <- GDCquery(project = "TARGET-ALL-P2",
+                    data.category= "Transcriptome Profiling",
+                    data.type = "Gene Expression Quantification",
+                    workflow.type = "STAR - Counts")
+GDCdownload(qry.ALL)
+ALL <- GDCprepare(qry.ALL, summarizedExperiment = TRUE) #For MM
+
+qry.MM <- GDCquery(project = "MMRF-COMMPASS",
+                    data.category= "Transcriptome Profiling",
+                    data.type = "Gene Expression Quantification",
+                    workflow.type = "STAR - Counts")
+GDCdownload(qry.MM)
+MM_raw <- GDCprepare(qry.MM, summarizedExperiment = TRUE) #For MM
+
+#AML_Normal_BM <- readRDS("AML_Normal_BM.rds")
+#ALL <- readRDS("../../rnas_raw_TAP2.RDS")
+#MM_raw <- readRDS("rnas_raw_MM.rds")
 
 AML_BM <- AML_Normal_BM[, AML_Normal_BM$sample_type == "Primary Blood Derived Cancer - Bone Marrow" | AML_Normal_BM$sample_type =="Recurrent Blood Derived Cancer - Bone Marrow"] 
 B_ALL <- ALL[ , (ALL$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & ALL$sample_type == "Primary Blood Derived Cancer - Bone Marrow") |
