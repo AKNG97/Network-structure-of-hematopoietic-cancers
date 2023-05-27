@@ -41,6 +41,7 @@ annot[annot == ""] <- NA
 annot <- annot %>% drop_na
 dim(annot)
 
+#For SP networks the following could be used 
 # Add_Chromosomes_Types_SP <- function(x,y) {
 #   
 #   x <- x %>% dplyr::inner_join(y, by = c("Source"="Ensembl_ID_Version")) %>% 
