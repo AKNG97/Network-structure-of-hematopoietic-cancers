@@ -4,9 +4,9 @@
 
 library(dplyr)
 
-communities <- as.data.frame(read.csv("/TALL_Checked_Communities.csv", row.names = 1))
+communities <- as.data.frame(read.csv("communities_TALL_MI_8th.csv", row.names = 1))
 communities[communities == "" | communities == " "] <- NA
-DE <- read.table("resLFC_TALL_vs_NormalBM_Checked_06_22.tsv")
+DE <- read.table("resLFC_TALL_vs_NormalBM.tsv")
 DE <- DE %>% select(baseMean, log2FoldChange)
 
 for(i in 1:nrow(communities)) {
@@ -33,4 +33,4 @@ for(i in 1:nrow(communities)) {
           } 
 }
 
-write.table(x, file = "TALL_Comm_DiffExpr_corrected_07_21.csv", row.names = FALSE, col.names = TRUE, quote = FALSE)
+write.table(x, file = "TALL_Comm_DiffExpr.csv", row.names = FALSE, col.names = TRUE, quote = FALSE)
