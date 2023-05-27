@@ -285,15 +285,15 @@ NBM_BALL_expr <- get_norm_matrices(BALL_NBM_norm, BALL_NBM[[2]],factors_BALL_NBM
 NBM_TALL_expr <- get_norm_matrices(TALL_NBM_norm, TALL_NBM[[2]],factors_TALL_NBM, "NormalBM")
 NBM_AML_expr <- get_norm_matrices(AML_NBM_norm, AML_NBM[[2]],factors_AML_NBM, "NormalBM")
 
-write.table(MM_expr, file = "rnas_norm_corrected_MM_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(BALL_expr, file = "rnas_norm_corrected_BALL_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(TALL_expr, file = "rnas_norm_corrected_TALL_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(AML_expr, file = "rnas_norm_corrected_AML_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(MM_expr, file = "rnas_norm_MM.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(BALL_expr, file = "rnas_norm_BALL.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(TALL_expr, file = "rnas_norm_TALL.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(AML_expr, file = "rnas_norm_AML.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
 
-write.table(NBM_MM_expr, file = "rnas_norm_corrected_NBM_MM_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(NBM_BALL_expr, file = "rnas_norm_corrected_NBM_BALL_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(NBM_TALL_expr, file = "rnas_norm_corrected_NBM_TALL_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
-write.table(NBM_AML_expr, file = "rnas_norm_corrected_NBM_AML_8.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(NBM_MM_expr, file = "rnas_norm_NBM_MM.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(NBM_BALL_expr, file = "rnas_norm_NBM_BALL.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(NBM_TALL_expr, file = "rnas_norm_NBM_TALL.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
+write.table(NBM_AML_expr, file = "rnas_norm_NBM_AML.tsv", row.names = FALSE, sep = "\t", quote = FALSE, col.names = FALSE)
 
 #### save bf ####
 saveRDS(MM_NBM, file="MM_NBM_bf.RDS")
