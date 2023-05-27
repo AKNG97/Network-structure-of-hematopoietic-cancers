@@ -1,4 +1,9 @@
-##This script calculates the Spearman correlation values. The co-expression matrix was obtained using the rcorr function in R as follows. 
+# Step 3: Get the co-expression values for each gene pair
+
+#We used the ARACNe algorithm to get the mutual information values for each pair of genes in the expression matrix. 
+#This was performed as described in https://github.com/ddiannae/ARACNE-multicore
+
+#This script calculates the Spearman correlation values. The co-expression matrix was obtained using the rcorr function in R as follows. 
 #The input for this script is the normalized counts file from step 1.
 
 library(dplyr)
