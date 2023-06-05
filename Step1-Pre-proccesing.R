@@ -131,10 +131,6 @@ qry.MM <- GDCquery(project = "MMRF-COMMPASS",
 GDCdownload(qry.MM)
 MM_raw <- GDCprepare(qry.MM, summarizedExperiment = TRUE) #For MM
 
-#AML_Normal_BM <- readRDS("AML_Normal_BM.rds")
-#ALL <- readRDS("../../rnas_raw_TAP2.RDS")
-#MM_raw <- readRDS("rnas_raw_MM.rds")
-
 AML_BM <- AML_Normal_BM[, AML_Normal_BM$sample_type == "Primary Blood Derived Cancer - Bone Marrow" | AML_Normal_BM$sample_type =="Recurrent Blood Derived Cancer - Bone Marrow"] 
 B_ALL <- ALL[ , (ALL$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & ALL$sample_type == "Primary Blood Derived Cancer - Bone Marrow") |
                 (ALL$primary_diagnosis == "Precursor B-cell lymphoblastic leukemia" & ALL$sample_type == "Recurrent Blood Derived Cancer - Bone Marrow")]
